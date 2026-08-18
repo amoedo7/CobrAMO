@@ -1,0 +1,14 @@
+{
+  "schema": "desarrollamo.project.v1",
+  "repository": "amoedo7/CobrAMO",
+  "name": "CobrAMO",
+  "ecosystem": "DesarrollAMO",
+  "type": "payment-reference",
+  "lifecycle": "placeholder",
+  "visibility": "public",
+  "source_of_truth": false,
+  "production_url": "https://cobramo.netlify.app/",
+  "related": [],
+  "reviewed_at": "2026-08-18",
+  "notes": ["This repository was empty before cleanup.", "The source that currently builds production has not been identified here."]
+}
