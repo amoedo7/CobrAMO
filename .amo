@@ -1,0 +1,58 @@
+{
+  "schema": "desarrollamo.amo.v1",
+  "amo_version": "1.0.0",
+  "id": "cobramo",
+  "name": "CobrAMO",
+  "kind": "payment-reference-placeholder",
+  "origin": "native",
+  "membership": "candidate",
+  "trust": "inspected",
+  "unit": {
+    "purpose": "Representar públicamente la función de referencia de cobro de DesarrollAMO mientras la fuente que genera la superficie productiva permanezca sin reconciliar.",
+    "responsibility": "Documentar propósito, límites y estado observable de CobrAMO sin declararse fuente de verdad de producción ni verificar pagos por sí mismo.",
+    "owner": "human_responsible",
+    "capabilities": ["payment-reference-documentation", "production-pointer", "payment-boundary-definition"]
+  },
+  "model": {
+    "inherits": [],
+    "context": ["README.md", "amo.project.json", "scripts/autocheck.py", ".github/workflows/autocheck.yml"],
+    "rules": [
+      "Este repositorio es un placeholder histórico y no es actualmente la fuente de verdad de cobramo.netlify.app.",
+      "La URL de producción documentada es una referencia observable, no prueba de que este repositorio la construya o despliegue.",
+      "CobrAMO no puede auto-declarar PAYMENT_VERIFIED ni sustituir evidencia externa de pago.",
+      "No deben versionarse secretos, credenciales, PIN, OTP, seeds, claves privadas ni datos bancarios no destinados explícitamente a ser públicos.",
+      "Un check no ejecutado o una fuente no reconciliada no puede presentarse como PASS operativo de producción."
+    ]
+  },
+  "map": {
+    "parent": "raizamo",
+    "children": [],
+    "relations": [],
+    "covers": ["README.md", "amo.project.json", "scripts/**", ".github/workflows/autocheck.yml"]
+  },
+  "policy": {
+    "cross_domain_changes_require_external_gates": true,
+    "self_declared_pass_allowed": false
+  },
+  "provenance": {
+    "source_uri": "https://github.com/amoedo7/CobrAMO",
+    "source_type": "git-repository",
+    "source_ref": "main"
+  },
+  "health": {
+    "checks": [
+      {
+        "id": "cobramo-autocheck",
+        "type": "command",
+        "command": "python3 scripts/autocheck.py",
+        "cwd": ".",
+        "timeout_seconds": 60,
+        "description": "Valida que el contrato canónico y la metadata pública de CobrAMO sigan reflejando honestamente su condición de placeholder no autoritativo."
+      }
+    ]
+  },
+  "evidence": {
+    "status": "inspected",
+    "refs": ["README.md", "amo.project.json", "scripts/autocheck.py", ".github/workflows/autocheck.yml"]
+  }
+}
