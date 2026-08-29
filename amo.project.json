@@ -8,7 +8,27 @@
   "visibility": "public",
   "source_of_truth": false,
   "production_url": "https://cobramo.netlify.app/",
+  "production_platform": {
+    "provider": "netlify",
+    "project_name": "cobramo",
+    "site_id": "5eb79ee0-1f9b-4f7c-8ffb-a25d457c55e1",
+    "source_status": "unreconciled"
+  },
+  "production_evidence": {
+    "observed_at": "2026-08-30",
+    "deploy_id": "6a7d6bc1d75069b3afa2f40e",
+    "deploy_state": "ready",
+    "deploy_source": "cli",
+    "build_id": null,
+    "commit_ref": null,
+    "public_repo": null,
+    "conclusion": "The production site is confirmed in the connected Netlify account, but this deploy exposes no repository or commit provenance, so the source remains unreconciled."
+  },
   "related": [],
-  "reviewed_at": "2026-08-18",
-  "notes": ["This repository was empty before cleanup.", "The source that currently builds production has not been identified here."]
+  "reviewed_at": "2026-08-30",
+  "notes": [
+    "This repository was empty before cleanup.",
+    "The connected Netlify project is now identified by stable site_id, but the source that currently builds production has not been identified.",
+    "The observed production deploy was created through the CLI and has no build_id, commit_ref, or public_repo metadata; this is evidence of the gap, not evidence that this repository is the source."
+  ]
 }

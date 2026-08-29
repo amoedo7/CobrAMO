@@ -44,6 +44,18 @@ Hasta reconciliar el source real, este repositorio **no es fuente de verdad y no
 
 Esta distinción es deliberada: preferimos documentar una ausencia antes que fingir que el código de GitHub y el sitio desplegado son lo mismo.
 
+### Evidencia de producción observada
+
+El proyecto conectado de Netlify ya quedó identificado de forma estable:
+
+- proyecto: `cobramo`;
+- site id: `5eb79ee0-1f9b-4f7c-8ffb-a25d457c55e1`;
+- URL HTTPS: `https://cobramo.netlify.app/`;
+- snapshot observado el `2026-08-30`: deploy `6a7d6bc1d75069b3afa2f40e`, estado `ready`;
+- ese deploy fue publicado con `deploy_source=cli` y no expone `build_id`, `commit_ref` ni `public_repo`.
+
+Por eso ahora conocemos con precisión **qué proyecto de Netlify sirve producción**, pero todavía no conocemos un repositorio o workspace recuperable que sea su source. Ese faltante sigue siendo explícito y no se convierte en PASS por tener el sitio online.
+
 ## Principios
 
 - una puerta de cobro reconocible para todo el ecosistema;
@@ -73,7 +85,7 @@ Localizar o recuperar el workspace que realmente genera `cobramo.netlify.app`, c
 2. este repo queda como alias/documentación; o
 3. se crea una fuente canónica nueva y este repo apunta a ella.
 
-No se debe reconstruir producción a ciegas desde este placeholder.
+No se debe reconstruir producción a ciegas desde este placeholder. El `site_id` documentado permite identificar el proyecto correcto en Netlify durante esa recuperación sin depender del nombre visible o de este chat.
 
 ## Seguridad
 
