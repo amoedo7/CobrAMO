@@ -34,27 +34,22 @@ operación / entrega
 
 ## Estado de este repositorio
 
-**Placeholder histórico.** Este repo no contiene actualmente el código fuente del CobrAMO que está en producción.
+**Referencia pública / placeholder histórico.** Este repo no contiene el código fuente del CobrAMO que está en producción y **no debe usarse para desplegar producción**.
+
+La fuente operativa canónica ya fue identificada en el registro interno de fuentes de DesarrollAMO, pero su reconciliación con el deploy productivo sigue abierta porque el deploy observado no expone provenance suficiente para demostrar qué revisión exacta lo generó.
 
 Producción conocida:
 
 https://cobramo.netlify.app/
 
-Hasta reconciliar el source real, este repositorio **no es fuente de verdad y no debe usarse para desplegar producción**.
+Esta distinción es deliberada: conocer la fuente esperada y conocer el deploy servido son hechos diferentes. Hasta verificar su correspondencia, este repositorio continúa siendo sólo una referencia pública y el estado de producción permanece como `drift`, no `PASS`.
 
-Esta distinción es deliberada: preferimos documentar una ausencia antes que fingir que el código de GitHub y el sitio desplegado son lo mismo.
+### Evidencia pública de producción
 
-### Evidencia de producción observada
-
-El proyecto conectado de Netlify ya quedó identificado de forma estable:
-
-- proyecto: `cobramo`;
-- site id: `5eb79ee0-1f9b-4f7c-8ffb-a25d457c55e1`;
+- proyecto público conocido: `cobramo`;
 - URL HTTPS: `https://cobramo.netlify.app/`;
-- snapshot observado el `2026-08-30`: deploy `6a7d6bc1d75069b3afa2f40e`, estado `ready`;
-- ese deploy fue publicado con `deploy_source=cli` y no expone `build_id`, `commit_ref` ni `public_repo`.
-
-Por eso ahora conocemos con precisión **qué proyecto de Netlify sirve producción**, pero todavía no conocemos un repositorio o workspace recuperable que sea su source. Ese faltante sigue siendo explícito y no se convierte en PASS por tener el sitio online.
+- el deploy productivo observado fue publicado sin `commit_ref` ni `public_repo` verificables;
+- por esa razón no puede atribuirse el contenido live a una revisión concreta sólo por estar online.
 
 ## Principios
 
@@ -79,13 +74,9 @@ Por eso ahora conocemos con precisión **qué proyecto de Netlify sirve producci
 
 ## Próximo paso técnico
 
-Localizar o recuperar el workspace que realmente genera `cobramo.netlify.app`, compararlo con producción y después decidir si:
+Reconciliar la fuente canónica con el deploy productivo y obtener provenance verificable antes de cualquier evolución de producción. Este repositorio público debe seguir como referencia mientras esa relación no esté demostrada.
 
-1. se migra aquí;
-2. este repo queda como alias/documentación; o
-3. se crea una fuente canónica nueva y este repo apunta a ella.
-
-No se debe reconstruir producción a ciegas desde este placeholder. El `site_id` documentado permite identificar el proyecto correcto en Netlify durante esa recuperación sin depender del nombre visible o de este chat.
+No se debe reconstruir ni desplegar producción a ciegas desde este placeholder.
 
 ## Seguridad
 
