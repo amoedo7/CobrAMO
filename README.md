@@ -34,15 +34,15 @@ operación / entrega
 
 ## Estado de este repositorio
 
-**Referencia pública / placeholder histórico.** Este repo no contiene el código fuente del CobrAMO que está en producción y **no debe usarse para desplegar producción**.
+**Referencia pública / placeholder histórico.** Este repo no contiene actualmente el código fuente del CobrAMO que está en producción y **no debe usarse para desplegar producción**.
 
-La fuente operativa canónica ya fue identificada en el registro interno de fuentes de DesarrollAMO, pero su reconciliación con el deploy productivo sigue abierta porque el deploy observado no expone provenance suficiente para demostrar qué revisión exacta lo generó.
+`amoedo7/CobrAMO` es el destino/referencia canónica prevista, pero el source observado que coincidía con producción no está publicado en `main` ni tiene provenance remota verificable. Por eso el estado operativo sigue siendo `source_sync_gap`: conocer el destino canónico esperado y conocer la revisión que generó producción son hechos diferentes.
 
 Producción conocida:
 
 https://cobramo.netlify.app/
 
-Esta distinción es deliberada: conocer la fuente esperada y conocer el deploy servido son hechos diferentes. Hasta verificar su correspondencia, este repositorio continúa siendo sólo una referencia pública y el estado de producción permanece como `drift`, no `PASS`.
+Hasta recuperar/publicar una fuente verificable y reconciliarla con el deploy servido, este repositorio continúa siendo sólo una referencia pública y el estado de producción no es `PASS`.
 
 ### Evidencia pública de producción
 
@@ -74,7 +74,7 @@ Esta distinción es deliberada: conocer la fuente esperada y conocer el deploy s
 
 ## Próximo paso técnico
 
-Reconciliar la fuente canónica con el deploy productivo y obtener provenance verificable antes de cualquier evolución de producción. Este repositorio público debe seguir como referencia mientras esa relación no esté demostrada.
+Recuperar o publicar la fuente que realmente corresponde al deploy productivo, reconciliarla con `amoedo7/CobrAMO` y obtener provenance verificable antes de cualquier evolución de producción.
 
 No se debe reconstruir ni desplegar producción a ciegas desde este placeholder.
 
