@@ -15,7 +15,7 @@
   },
   "model": {
     "inherits": [],
-    "context": ["README.md", "amo.project.json", "scripts/autocheck.py", ".github/workflows/autocheck.yml"],
+    "context": ["README.md", "amo.project.json", "RECOVERY.md", "scripts/autocheck.py", ".github/workflows/autocheck.yml"],
     "rules": [
       "Este repositorio es un placeholder histórico y no es actualmente la fuente de verdad de cobramo.netlify.app.",
       "La URL de producción documentada es una referencia observable, no prueba de que este repositorio la construya o despliegue.",
@@ -28,7 +28,7 @@
     "parent": "raizamo",
     "children": [],
     "relations": [],
-    "covers": ["README.md", "amo.project.json", "scripts/**", ".github/workflows/autocheck.yml"]
+    "covers": ["README.md", "amo.project.json", "RECOVERY.md", "scripts/**", ".github/workflows/autocheck.yml"]
   },
   "policy": {
     "cross_domain_changes_require_external_gates": true,
@@ -53,6 +53,6 @@
   },
   "evidence": {
     "status": "inspected",
-    "refs": ["README.md", "amo.project.json", "scripts/autocheck.py", ".github/workflows/autocheck.yml"]
+    "refs": ["README.md", "amo.project.json", "RECOVERY.md", "scripts/autocheck.py", ".github/workflows/autocheck.yml"]
   }
 }
