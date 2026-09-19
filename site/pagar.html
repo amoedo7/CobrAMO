@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b16">
+<title>Pagar · CobrAMO</title>
+<meta name="description" content="Pago online de servicios DesarrollAMO mediante Mercado Pago.">
+<style>
+:root{--bg:#070b16;--card:#101829;--line:#25324a;--text:#f7f9fc;--muted:#9aa8bf;--sky:#7dd3fc;--pink:#ff5aa5;--ok:#46d39a;--warn:#ffd166}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 15% 0,rgba(125,211,252,.12),transparent 35%),radial-gradient(circle at 90% 10%,rgba(255,90,165,.10),transparent 30%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+main{width:min(720px,calc(100% - 28px));margin:auto;padding:48px 0}.brand{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand a{color:var(--sky);text-decoration:none;font-weight:800}.badge{font-size:12px;padding:7px 10px;border:1px solid rgba(125,211,252,.28);border-radius:999px;color:var(--sky);background:rgba(125,211,252,.08)}
+.card{border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,rgba(19,29,49,.96),rgba(11,18,32,.98));padding:28px;box-shadow:0 28px 70px rgba(0,0,0,.3)}
+h1{font-size:clamp(34px,8vw,58px);line-height:.95;letter-spacing:-.055em;margin:0 0 14px}.lead{color:#b5c2d5;line-height:1.55;margin:0 0 24px}
+label{display:block;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:16px 0 7px}
+select,input,button{width:100%;font:inherit;border-radius:12px}select,input{padding:13px 14px;background:#0b1424;border:1px solid var(--line);color:var(--text)}button{margin-top:18px;padding:14px;border:0;background:linear-gradient(90deg,var(--sky),#9fe3ff);color:#08101e;font-weight:900;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
+.status{margin-top:16px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:14px;line-height:1.45}.status.ok{border-color:rgba(70,211,154,.35);color:var(--ok)}.status.warn{border-color:rgba(255,209,102,.35);color:var(--warn)}.status.err{border-color:rgba(255,90,165,.35);color:#ff8dbc}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.meta div{padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)}.meta small{display:block;color:var(--muted);margin-bottom:4px}.meta strong{font-size:14px}
+footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}footer a{color:var(--sky)}
+@media(max-width:560px){main{padding:24px 0}.card{padding:20px}.meta{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><a href="/">← CobrAMO</a><span class="badge">Mercado Pago</span></div>
+  <section class="card">
+    <h1>Pagar online.</h1>
+    <p class="lead">El importe sale del catálogo seguro del servidor. El navegador no puede modificar el precio.</p>
+
+    <label for="product">Servicio</label>
+    <select id="product" disabled><option>Cargando…</option></select>
+
+    <div class="meta">
+      <div><small>Importe</small><strong id="amount">—</strong></div>
+      <div><small>Estado</small><strong id="mode">Comprobando…</strong></div>
+    </div>
+
+    <label for="email">Email del comprador</label>
+    <input id="email" type="email" autocomplete="email" placeholder="cliente@ejemplo.com">
+
+    <button id="pay" disabled>Pagar con Mercado Pago</button>
+    <div id="status" class="status">Consultando la integración productiva…</div>
+  </section>
+  <footer>Checkout Pro · Orders API · <a href="https://desarrollamo.com.ar/">DesarrollAMO</a></footer>
+</main>
+<script>
+const product=document.getElementById('product'),email=document.getElementById('email'),pay=document.getElementById('pay');
+const statusEl=document.getElementById('status'),amount=document.getElementById('amount'),mode=document.getElementById('mode');
+let configured=false, products=[];
+function money(p){return new Intl.NumberFormat('es-AR',{style:'currency',currency:p.currency,maximumFractionDigits:0}).format(Number(p.amount))}
+function selected(){return products.find(x=>x.sku===product.value)}
+function refresh(){const p=selected();amount.textContent=p?money(p):'—';pay.disabled=!configured||!p}
+function showReturn(){const state=new URLSearchParams(location.search).get('mp');if(!state)return;
+ const map={success:['Pago enviado a verificación.','ok'],pending:['El pago quedó pendiente.','warn'],failure:['El pago no se completó.','err']};
+ const v=map[state];if(v){statusEl.textContent=v[0];statusEl.className='status '+v[1]}}
+async function boot(){
+ try{
+  const r=await fetch('/api/mp/catalog',{headers:{accept:'application/json'}});
+  const data=await r.json();products=data.products||[];configured=Boolean(data.configured);
+  product.innerHTML=products.map(p=>'<option value="'+p.sku+'">'+p.title+'</option>').join('');
+  product.disabled=!products.length;mode.textContent=configured?'Producción activa':'Pendiente de credencial';
+  statusEl.textContent=configured?'Mercado Pago productivo está listo para crear órdenes reales.':'La infraestructura está publicada, pero falta cargar el Access Token productivo de Mercado Pago.';
+  statusEl.className='status '+(configured?'ok':'warn');refresh();showReturn();
+ }catch{statusEl.textContent='No se pudo consultar el estado del checkout.';statusEl.className='status err'}
+}
+product.addEventListener('change',refresh);
+pay.addEventListener('click',async()=>{
+ pay.disabled=true;statusEl.textContent='Creando orden segura…';statusEl.className='status';
+ try{
+  const r=await fetch('/api/mp/checkout',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({sku:product.value,email:email.value.trim()})});
+  const data=await r.json();if(!r.ok||!data.checkout_url)throw new Error(data.error||'No se pudo crear la orden');
+  location.assign(data.checkout_url);
+ }catch(e){statusEl.textContent=e.message||'No se pudo crear la orden.';statusEl.className='status err';refresh()}
+});
+boot();
+</script>
+</body>
+</html>
