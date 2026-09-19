@@ -10,6 +10,7 @@ Implementado en esta rama:
 
 - catálogo server-side de productos de precio fijo;
 - endpoint público de catálogo;
+- creación de order real con Checkout Pro / Orders API;
 - consulta de estado de order por ID;
 - Webhook con validación HMAC de `x-signature`;
 - configuración de Netlify Functions;
@@ -52,6 +53,19 @@ Una venta se considera acreditada únicamente cuando la order devuelva:
 
 Una URL de retorno del navegador nunca confirma por sí sola un pago.
 
-## Pendiente bloqueado
+## Endpoint de checkout
 
-Falta el endpoint que crea la order real y devuelve `checkout_url`. La escritura remota de ese archivo fue bloqueada por los controles de ejecución, por lo que no se publicó ni se simuló como completada.
+`POST /api/mp/checkout`
+
+Body:
+
+```json
+{
+  "sku": "cv-pdf-profesional",
+  "email": "cliente@ejemplo.com"
+}
+```
+
+El backend toma el precio desde el catálogo server-side, crea una order con `X-Idempotency-Key` y devuelve únicamente datos seguros junto con `checkout_url`.
+
+No se aceptan importes enviados por el navegador.
