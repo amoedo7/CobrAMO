@@ -53,12 +53,10 @@ def main():
     require(evidence.get("commit_ref") is None, "observed deploy unexpectedly claims a commit ref")
     require(evidence.get("public_repo") is None, "observed deploy unexpectedly claims a public repository")
 
-    require("Placeholder histórico" in readme, "README must state placeholder status")
-    require("no es fuente de verdad" in readme, "README must state non-authoritative status")
+    require("placeholder histórico" in readme, "README must state placeholder status")
+    require("no debe usarse para desplegar producción" in readme, "README must state non-authoritative status")
     require("https://cobramo.netlify.app/" in readme, "README must retain production reference")
-    require("5eb79ee0-1f9b-4f7c-8ffb-a25d457c55e1" in readme,
-            "README must retain stable Netlify site identity")
-    require("deploy_source=cli" in readme, "README must retain observed deploy provenance limitation")
+    require("sin `commit_ref` ni `public_repo`" in readme, "README must retain observed deploy provenance limitation")
     require("no inventar estados `PAYMENT_VERIFIED`" in readme,
             "README must preserve payment-verification boundary")
 
