@@ -52,9 +52,9 @@ export default async (req) => {
     config: {
       notification_url: publicUrl + "/api/mp/webhook",
       online: {
-        success_url: publicUrl + "/?mp=success",
-        failure_url: publicUrl + "/?mp=failure",
-        pending_url: publicUrl + "/?mp=pending",
+        success_url: publicUrl + "/pagar.html?mp=success",
+        failure_url: publicUrl + "/pagar.html?mp=failure",
+        pending_url: publicUrl + "/pagar.html?mp=pending",
         auto_return: "approved",
       },
     },
